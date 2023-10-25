@@ -1,0 +1,110 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.cardPayBox.data-v-e26a4810 {
+  position: relative;
+}
+.cardPayBox .userInfo.data-v-e26a4810 {
+  height: 296rpx;
+  padding: 0 64rpx;
+  background: linear-gradient(310deg, #63BCF7 0%, #4E82FD 100%);
+}
+.cardPayBox .userInfo .top.data-v-e26a4810 {
+  display: flex;
+  padding: 20rpx 0;
+  color: #FFFFFF;
+}
+.cardPayBox .userInfo .top .name.data-v-e26a4810 {
+  font-size: 40rpx;
+}
+.cardPayBox .userInfo .top .sex.data-v-e26a4810 {
+  align-self: center;
+  margin-left: 20rpx;
+  font-size: 32rpx;
+}
+.cardPayBox .userInfo .bottom.data-v-e26a4810 {
+  width: 520rpx;
+  height: 78rpx;
+  background: rgba(255, 255, 255, 0.39);
+  opacity: 0.55;
+  color: #134F9B;
+  font-size: 32prx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 12rpx;
+  padding: 20rpx 50rpx;
+}
+.cardPayBox .payButton.data-v-e26a4810 {
+  position: absolute;
+  top: 250rpx;
+  left: 50%;
+  width: 390rpx;
+  height: 96rpx;
+  background: linear-gradient(90deg, #4F84FD 0%, #61B8F8 100%);
+  border-radius: 100rpx;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 20rpx solid #FFFFFF;
+}
+.cardPayBox .moneyList.data-v-e26a4810 {
+  margin-top: 120rpx;
+  padding: 0 30rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.cardPayBox .moneyList .moneyItem.data-v-e26a4810 {
+  width: 214rpx;
+  height: 128rpx;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+  border-left: 1px solid #F8F8F8;
+  box-shadow: 5px 5px 5px #F8F8F8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #535353;
+}
+.cardPayBox .moneyList .moneyItem .money.data-v-e26a4810 {
+  font-size: 36rpx;
+}
+.cardPayBox .moneyList .moneyItem .input.data-v-e26a4810 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 36rpx;
+}
+.cardPayBox .moneyList .activeItem.data-v-e26a4810 {
+  background: linear-gradient(132deg, #4E83FD 0%, #62BBF7 100%);
+  color: #FFFFFF;
+}
+

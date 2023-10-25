@@ -1,0 +1,21 @@
+
+.cmd-page-body {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: #ffffff;
+}
+.cmd-page-body-top-bottom {
+	padding-bottom: 118rpx;
+	padding-top: 88rpx;
+	top: 25px;
+}
+.cmd-page-body-bottom {
+	padding-bottom: 118rpx;
+}
+.cmd-page-body-top {
+	padding-top: 88rpx;
+	top: 25px;
+}
+

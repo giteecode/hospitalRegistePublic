@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.PEvaluateMapper">
+    
+    <resultMap type="PEvaluate" id="PEvaluateResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="evaluateContent"    column="evaluate_content"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="registrationId"    column="registration_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="doctorNickName"    column="doctorNickName"    />
+        <result property="doctorUserName"    column="doctorUserName"    />
+        <result property="doctorAvatar"    column="doctorAvatar"    />
+        <association property="sysUser"    column="user_id" javaType="SysUser" resultMap="sysUserResult" />
+
+    </resultMap>
+
+    <resultMap type="SysUser" id="sysUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="phonenumber"  column="phonenumber"  />
+        <result property="sex"          column="sex"          />
+        <result property="avatar"       column="avatar"       />
+        <result property="remark"       column="remark"       />
+        <result property="balance"       column="balance"       />
+        <result property="sectionId"       column="section_id"       />
+        <result property="outpatienId"       column="outpatien_id"       />
+        <result property="sectionName"       column="sectionName"       />
+        <result property="roomName"       column="roomName"       />
+        <result property="residualNumber"       column="residual_number"       />
+        <result property="totalNumber"       column="total_number"       />
+    </resultMap>
+
+    <sql id="selectPEvaluateVo">
+        SELECT
+            p_evaluate.id,
+            p_evaluate.user_id,
+            p_evaluate.evaluate_content,
+            p_evaluate.doctor_id,
+            p_evaluate.registration_id,
+            p_evaluate.create_time,
+            u1.nick_name,
+            u1.user_name,
+            u1.avatar,
+            u2.nick_name AS doctorNickName,
+            u2.user_name AS doctorUserName,
+            u2.avatar AS doctorAvatar
+        FROM
+            p_evaluate
+                LEFT JOIN sys_user u1 ON p_evaluate.user_id = u1.user_id
+                LEFT JOIN sys_user u2 ON p_evaluate.doctor_id = u2.user_id
+    </sql>
+
+    <select id="selectPEvaluateList" parameterType="PEvaluate" resultMap="PEvaluateResult">
+        <include refid="selectPEvaluateVo"/>
+        <where>  
+            <if test="userId != null "> and p_evaluate.user_id = #{userId}</if>
+            <if test="evaluateContent != null  and evaluateContent != ''"> and evaluate_content = #{evaluateContent}</if>
+            <if test="doctorId != null "> and p_evaluate.doctor_id = #{doctorId}</if>
+            <if test="registrationId != null "> and registration_id = #{registrationId}</if>
+        </where>
+    </select>
+    
+    <select id="selectPEvaluateById" parameterType="Long" resultMap="PEvaluateResult">
+        <include refid="selectPEvaluateVo"/>
+        where p_evaluate.id = #{id}
+    </select>
+        
+    <insert id="insertPEvaluate" parameterType="PEvaluate" useGeneratedKeys="true" keyProperty="id">
+        insert into p_evaluate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="evaluateContent != null and evaluateContent != ''">evaluate_content,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="registrationId != null">registration_id,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="evaluateContent != null and evaluateContent != ''">#{evaluateContent},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="registrationId != null">#{registrationId},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePEvaluate" parameterType="PEvaluate">
+        update p_evaluate
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="evaluateContent != null and evaluateContent != ''">evaluate_content = #{evaluateContent},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="registrationId != null">registration_id = #{registrationId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePEvaluateById" parameterType="Long">
+        delete from p_evaluate where id = #{id}
+    </delete>
+
+    <delete id="deletePEvaluateByIds" parameterType="String">
+        delete from p_evaluate where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "我的",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "cmd-avatar": "/components/cmd-avatar/cmd-avatar",
+    "cmd-cell-item": "/components/cmd-cell-item/cmd-cell-item",
+    "cmd-icon": "/components/cmd-icon/cmd-icon"
+  }
+}

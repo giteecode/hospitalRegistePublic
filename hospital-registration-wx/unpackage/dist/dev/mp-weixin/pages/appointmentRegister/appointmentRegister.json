@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "预约挂号",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-avatar": "/uni_modules/uview-ui/components/u-avatar/u-avatar"
+  }
+}

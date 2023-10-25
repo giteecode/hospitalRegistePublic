@@ -1,0 +1,1 @@
+<view><view class="{{['cmd-'+name]}}"><slot></slot></view></view>

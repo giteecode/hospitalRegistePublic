@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.PRegistrationMapper">
+    
+    <resultMap type="PRegistration" id="PRegistrationResult">
+        <result property="id"    column="id"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="userId"    column="user_id"    />
+        <result property="registrationTime"    column="registration_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="status"    column="status"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="sectionId"    column="section_id"    />
+        <result property="outpatien"    column="outpatien"    />
+        <result property="cancelTime"    column="cancel_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="doctorName"    column="doctorName"    />
+        <result property="registrationPrice"    column="registration_price"    />
+        <association property="sysUser"    column="user_id" javaType="SysUser" resultMap="sysUserResult" />
+        <association property="pSection"    column="dept_id" javaType="PSection" resultMap="pSectionResult" />
+        <association property="pOutpatien"    column="room_id" javaType="POutpatien" resultMap="pOutpatienResult" />
+
+    </resultMap>
+
+    <resultMap type="SysUser" id="sysUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="avatar"       column="avatar"       />
+    </resultMap>
+
+    <resultMap type="PSection" id="pSectionResult">
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <resultMap type="POutpatien" id="pOutpatienResult">
+        <result property="roomId"    column="room_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="roomName"    column="room_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPRegistrationVo">
+        SELECT
+            p_registration.id,
+            p_registration.order_no,
+            p_registration.user_id,
+            p_registration.registration_time,
+            p_registration.create_time,
+            p_registration.STATUS,
+            p_registration.doctor_id,
+            p_registration.section_id,
+            p_registration.outpatien,
+            p_registration.cancel_time,
+            p_registration.registration_price,
+            p_registration.remark,
+            sys_user.nick_name,
+            p_section.dept_name,
+            p_outpatien.room_name,
+            u1.nick_name as doctorName
+        FROM
+            p_registration
+                LEFT JOIN sys_user ON p_registration.user_id = sys_user.user_id
+                LEFT JOIN p_section ON p_registration.section_id = p_section.dept_id
+                LEFT JOIN p_outpatien ON p_registration.outpatien = p_outpatien.room_id
+                LEFT JOIN sys_user u1 ON p_registration.doctor_id = u1.user_id    </sql>
+
+    <select id="selectPRegistrationList" parameterType="PRegistration" resultMap="PRegistrationResult">
+        <include refid="selectPRegistrationVo"/>
+        <where>  
+            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
+            <if test="userId != null "> and p_registration.user_id = #{userId}</if>
+            <if test="registrationTime != null "> and registration_time = #{registrationTime}</if>
+            <if test="status != null  and status != ''"> and p_registration.status = #{status}</if>
+            <if test="doctorId != null "> and p_registration.doctor_id = #{doctorId}</if>
+            <if test="sectionId != null "> and p_registration.section_id = #{sectionId}</if>
+            <if test="outpatien != null "> and p_registration.outpatien = #{outpatien}</if>
+            <if test="cancelTime != null "> and cancel_time = #{cancelTime}</if>
+        </where>
+
+        order by p_registration.create_time desc
+    </select>
+
+
+    <select id="getStatisticsVO" resultType="StatisticsVO">
+        SELECT MONTH
+            ( create_time ) AS monthNum,
+            COUNT( 1 ) AS totalNumber
+        FROM
+            p_registration
+        WHERE
+            YEAR ( create_time ) = 2023
+        GROUP BY
+            MONTH (
+            create_time)
+
+    </select>
+
+    <select id="getStatisticsWeekVO" resultType="StatisticsWeekVO">
+        SELECT
+            count(1) countNum
+        FROM
+            p_registration
+        WHERE
+                YEARWEEK(
+                        DATE_FORMAT( create_time, '%Y-%m-%d' ))= YEARWEEK(
+                        NOW());
+
+    </select>
+
+    <select id="getStatisticsDayVO" resultType="StatisticsDayVO">
+
+        SELECT
+            count(1) countNum
+        FROM
+            p_registration
+        WHERE
+                TO_DAYS( create_time )= TO_DAYS(
+                    NOW());
+
+    </select>
+    
+    <select id="selectPRegistrationById" parameterType="Long" resultMap="PRegistrationResult">
+        <include refid="selectPRegistrationVo"/>
+        where p_registration.id = #{id}
+    </select>
+        
+    <insert id="insertPRegistration" parameterType="PRegistration" useGeneratedKeys="true" keyProperty="id">
+        insert into p_registration
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">order_no,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="registrationTime != null">registration_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="status != null">status,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="sectionId != null">section_id,</if>
+            <if test="outpatien != null">outpatien,</if>
+            <if test="cancelTime != null">cancel_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="registrationPrice != null">registration_price,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">#{orderNo},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="registrationTime != null">#{registrationTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="sectionId != null">#{sectionId},</if>
+            <if test="outpatien != null">#{outpatien},</if>
+            <if test="cancelTime != null">#{cancelTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="registrationPrice != null">#{registrationPrice},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePRegistration" parameterType="PRegistration">
+        update p_registration
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">order_no = #{orderNo},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="registrationTime != null">registration_time = #{registrationTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="sectionId != null">section_id = #{sectionId},</if>
+            <if test="outpatien != null">outpatien = #{outpatien},</if>
+            <if test="cancelTime != null">cancel_time = #{cancelTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePRegistrationById" parameterType="Long">
+        delete from p_registration where id = #{id}
+    </delete>
+
+    <delete id="deletePRegistrationByIds" parameterType="String">
+        delete from p_registration where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

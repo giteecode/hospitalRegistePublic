@@ -1,0 +1,149 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+view.data-v-8e60ec6e, scroll-view.data-v-8e60ec6e, swiper-item.data-v-8e60ec6e {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: auto;
+  align-items: stretch;
+  align-content: flex-start;
+}
+/**
+ * vue版本动画内置的动画模式有如下：
+ * fade：淡入
+ * zoom：缩放
+ * fade-zoom：缩放淡入
+ * fade-up：上滑淡入
+ * fade-down：下滑淡入
+ * fade-left：左滑淡入
+ * fade-right：右滑淡入
+ * slide-up：上滑进入
+ * slide-down：下滑进入
+ * slide-left：左滑进入
+ * slide-right：右滑进入
+ */
+.u-fade-enter-active.data-v-8e60ec6e,
+.u-fade-leave-active.data-v-8e60ec6e {
+  transition-property: opacity;
+}
+.u-fade-enter.data-v-8e60ec6e,
+.u-fade-leave-to.data-v-8e60ec6e {
+  opacity: 0;
+}
+.u-fade-zoom-enter.data-v-8e60ec6e,
+.u-fade-zoom-leave-to.data-v-8e60ec6e {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+  opacity: 0;
+}
+.u-fade-zoom-enter-active.data-v-8e60ec6e,
+.u-fade-zoom-leave-active.data-v-8e60ec6e {
+  transition-property: opacity, -webkit-transform;
+  transition-property: transform, opacity;
+  transition-property: transform, opacity, -webkit-transform;
+}
+.u-fade-down-enter-active.data-v-8e60ec6e,
+.u-fade-down-leave-active.data-v-8e60ec6e,
+.u-fade-left-enter-active.data-v-8e60ec6e,
+.u-fade-left-leave-active.data-v-8e60ec6e,
+.u-fade-right-enter-active.data-v-8e60ec6e,
+.u-fade-right-leave-active.data-v-8e60ec6e,
+.u-fade-up-enter-active.data-v-8e60ec6e,
+.u-fade-up-leave-active.data-v-8e60ec6e {
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+}
+.u-fade-up-enter.data-v-8e60ec6e,
+.u-fade-up-leave-to.data-v-8e60ec6e {
+  -webkit-transform: translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0);
+  opacity: 0;
+}
+.u-fade-down-enter.data-v-8e60ec6e,
+.u-fade-down-leave-to.data-v-8e60ec6e {
+  -webkit-transform: translate3d(0, -100%, 0);
+          transform: translate3d(0, -100%, 0);
+  opacity: 0;
+}
+.u-fade-left-enter.data-v-8e60ec6e,
+.u-fade-left-leave-to.data-v-8e60ec6e {
+  -webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
+  opacity: 0;
+}
+.u-fade-right-enter.data-v-8e60ec6e,
+.u-fade-right-leave-to.data-v-8e60ec6e {
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+  opacity: 0;
+}
+.u-slide-down-enter-active.data-v-8e60ec6e,
+.u-slide-down-leave-active.data-v-8e60ec6e,
+.u-slide-left-enter-active.data-v-8e60ec6e,
+.u-slide-left-leave-active.data-v-8e60ec6e,
+.u-slide-right-enter-active.data-v-8e60ec6e,
+.u-slide-right-leave-active.data-v-8e60ec6e,
+.u-slide-up-enter-active.data-v-8e60ec6e,
+.u-slide-up-leave-active.data-v-8e60ec6e {
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+}
+.u-slide-up-enter.data-v-8e60ec6e,
+.u-slide-up-leave-to.data-v-8e60ec6e {
+  -webkit-transform: translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0);
+}
+.u-slide-down-enter.data-v-8e60ec6e,
+.u-slide-down-leave-to.data-v-8e60ec6e {
+  -webkit-transform: translate3d(0, -100%, 0);
+          transform: translate3d(0, -100%, 0);
+}
+.u-slide-left-enter.data-v-8e60ec6e,
+.u-slide-left-leave-to.data-v-8e60ec6e {
+  -webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
+}
+.u-slide-right-enter.data-v-8e60ec6e,
+.u-slide-right-leave-to.data-v-8e60ec6e {
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+}
+.u-zoom-enter-active.data-v-8e60ec6e,
+.u-zoom-leave-active.data-v-8e60ec6e {
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+}
+.u-zoom-enter.data-v-8e60ec6e,
+.u-zoom-leave-to.data-v-8e60ec6e {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+}
+

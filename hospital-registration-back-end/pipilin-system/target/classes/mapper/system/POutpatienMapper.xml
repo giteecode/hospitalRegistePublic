@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.POutpatienMapper">
+    
+    <resultMap type="POutpatien" id="POutpatienResult">
+        <result property="roomId"    column="room_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="roomName"    column="room_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <association property="pSection"    column="dept_id" javaType="PSection" resultMap="pSectionResult" />
+    </resultMap>
+
+    <resultMap type="PSection" id="pSectionResult">
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPOutpatienVo">
+        SELECT
+            p_outpatien.room_id,
+            p_outpatien.dept_id,
+            p_outpatien.room_name,
+            p_outpatien.create_by,
+            p_outpatien.create_time,
+            p_section.dept_name
+        FROM
+            p_outpatien
+                LEFT JOIN p_section ON p_outpatien.dept_id = p_section.dept_id
+    </sql>
+
+    <select id="selectPOutpatienList" parameterType="POutpatien" resultMap="POutpatienResult">
+        <include refid="selectPOutpatienVo"/>
+        <where>  
+            <if test="deptId != null "> and p_outpatien.dept_id = #{deptId}</if>
+            <if test="roomName != null  and roomName != ''"> and room_name like concat('%', #{roomName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectPOutpatienByRoomId" parameterType="Long" resultMap="POutpatienResult">
+        <include refid="selectPOutpatienVo"/>
+        where room_id = #{roomId}
+    </select>
+        
+    <insert id="insertPOutpatien" parameterType="POutpatien" useGeneratedKeys="true" keyProperty="roomId">
+        insert into p_outpatien
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">dept_id,</if>
+            <if test="roomName != null and roomName != ''">room_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">#{deptId},</if>
+            <if test="roomName != null and roomName != ''">#{roomName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePOutpatien" parameterType="POutpatien">
+        update p_outpatien
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="roomName != null and roomName != ''">room_name = #{roomName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where room_id = #{roomId}
+    </update>
+
+    <delete id="deletePOutpatienByRoomId" parameterType="Long">
+        delete from p_outpatien where room_id = #{roomId}
+    </delete>
+
+    <delete id="deletePOutpatienByRoomIds" parameterType="String">
+        delete from p_outpatien where room_id in 
+        <foreach item="roomId" collection="array" open="(" separator="," close=")">
+            #{roomId}
+        </foreach>
+    </delete>
+</mapper>

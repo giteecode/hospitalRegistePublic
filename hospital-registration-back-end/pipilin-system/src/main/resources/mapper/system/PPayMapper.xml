@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.PPayMapper">
+    
+    <resultMap type="PPay" id="PPayResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="price"    column="price"    />
+        <result property="createTime"    column="create_time"    />
+        <association property="sysUser"    column="user_id" javaType="SysUser" resultMap="sysUserResult" />
+
+    </resultMap>
+
+    <resultMap type="SysUser" id="sysUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="phonenumber"  column="phonenumber"  />
+        <result property="sex"          column="sex"          />
+        <result property="avatar"       column="avatar"       />
+    </resultMap>
+
+    <sql id="selectPPayVo">
+        SELECT
+            p_pay.id,
+            p_pay.user_id,
+            p_pay.order_no,
+            p_pay.price,
+            p_pay.create_time,
+            sys_user.user_name,
+            sys_user.nick_name,
+            sys_user.avatar
+        FROM
+            p_pay
+                LEFT JOIN sys_user ON p_pay.user_id = sys_user.user_id
+    </sql>
+
+    <select id="selectPPayList" parameterType="PPay" resultMap="PPayResult">
+        <include refid="selectPPayVo"/>
+        <where>  
+            <if test="userId != null "> and p_pay.user_id = #{userId}</if>
+            <if test="orderNo != null  and orderNo != ''"> and order_no like concat('%', #{orderNo}, '%')</if>
+            <if test="keyWord1 != null  and keyWord1 != ''"> and sys_user.nick_name like concat('%', #{keyWord1}, '%')</if>
+            <if test="price != null "> and price = #{price}</if>
+        </where>
+    </select>
+    
+    <select id="selectPPayById" parameterType="Long" resultMap="PPayResult">
+        <include refid="selectPPayVo"/>
+        where p_pay.id = #{id}
+    </select>
+        
+    <insert id="insertPPay" parameterType="PPay" useGeneratedKeys="true" keyProperty="id">
+        insert into p_pay
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="orderNo != null and orderNo != ''">order_no,</if>
+            <if test="price != null">price,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="orderNo != null and orderNo != ''">#{orderNo},</if>
+            <if test="price != null">#{price},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePPay" parameterType="PPay">
+        update p_pay
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orderNo != null and orderNo != ''">order_no = #{orderNo},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePPayById" parameterType="Long">
+        delete from p_pay where id = #{id}
+    </delete>
+
+    <delete id="deletePPayByIds" parameterType="String">
+        delete from p_pay where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,8 @@
+Application Version: ${pipilin.version}
+Spring Boot Version: ${spring-boot.version}
+       .__       .__.__  .__
+______ |__|_____ |__|  | |__| ____
+\____ \|  \____ \|  |  | |  |/    \
+|  |_> >  |  |_> >  |  |_|  |   |  \
+|   __/|__|   __/|__|____/__|___|  /
+|__|      |__|                   \/

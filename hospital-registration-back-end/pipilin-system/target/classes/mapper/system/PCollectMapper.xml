@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.PCollectMapper">
+    
+    <resultMap type="PCollect" id="PCollectResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="sectionId"    column="section_id"    />
+        <result property="outpatien"    column="outpatien"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="nickName"    column="nickName"    />
+        <association property="sysUser"    column="user_id" javaType="SysUser" resultMap="sysUserResult" />
+        <association property="pSection"    column="dept_id" javaType="PSection" resultMap="pSectionResult" />
+        <association property="pOutpatien"    column="room_id" javaType="POutpatien" resultMap="pOutpatienResult" />
+
+    </resultMap>
+
+    <resultMap type="SysUser" id="sysUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="phonenumber"  column="phonenumber"  />
+        <result property="sex"          column="sex"          />
+        <result property="avatar"       column="avatar"       />
+        <result property="remark"       column="remark"       />
+        <result property="balance"       column="balance"       />
+        <result property="sectionId"       column="section_id"       />
+        <result property="outpatienId"       column="outpatien_id"       />
+        <result property="sectionName"       column="sectionName"       />
+        <result property="roomName"       column="roomName"       />
+        <result property="residualNumber"       column="residual_number"       />
+        <result property="totalNumber"       column="total_number"       />
+        <result property="rank1"       column="rank1"       />
+        <result property="age"       column="age"       />
+    </resultMap>
+
+    <resultMap type="PSection" id="pSectionResult">
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <resultMap type="POutpatien" id="pOutpatienResult">
+        <result property="roomId"    column="room_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="roomName"    column="room_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPCollectVo">
+        SELECT
+            p_collect.id,
+            p_collect.user_id,
+            p_collect.doctor_id,
+            p_collect.section_id,
+            p_collect.outpatien,
+            p_collect.create_time,
+            sys_user.user_id,
+            sys_user.nick_name,
+            sys_user.user_name,
+            sys_user.avatar,
+            sys_user.sex,
+            sys_user.balance,
+            sys_user.residual_number,
+            sys_user.total_number,
+            sys_user.remark,
+            sys_user.rank1,
+            sys_user.age,
+            p_section.dept_id,
+            p_section.dept_name,
+            p_outpatien.room_id,
+            p_outpatien.room_name,
+            u2.nick_name AS nickName
+        FROM
+            p_collect
+                LEFT JOIN sys_user ON p_collect.doctor_id = sys_user.user_id
+                LEFT JOIN p_section ON sys_user.section_id = p_section.dept_id
+                LEFT JOIN p_outpatien ON sys_user.outpatien_id = p_outpatien.room_id
+                LEFT JOIN sys_user u2 ON p_collect.user_id = u2.user_id
+    </sql>
+
+    <select id="selectPCollectList" parameterType="PCollect" resultMap="PCollectResult">
+        <include refid="selectPCollectVo"/>
+        <where>  
+            <if test="userId != null "> and p_collect.user_id = #{userId}</if>
+            <if test="doctorId != null "> and p_collect.doctor_id = #{doctorId}</if>
+            <if test="sectionId != null "> and p_collect.section_id = #{sectionId}</if>
+            <if test="outpatien != null "> and p_collect.outpatien = #{outpatien}</if>
+        </where>
+    </select>
+    
+    <select id="selectPCollectById" parameterType="Long" resultMap="PCollectResult">
+        <include refid="selectPCollectVo"/>
+        where p_collect.id = #{id}
+    </select>
+        
+    <insert id="insertPCollect" parameterType="PCollect" useGeneratedKeys="true" keyProperty="id">
+        insert into p_collect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="sectionId != null">section_id,</if>
+            <if test="outpatien != null">outpatien,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="sectionId != null">#{sectionId},</if>
+            <if test="outpatien != null">#{outpatien},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePCollect" parameterType="PCollect">
+        update p_collect
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="sectionId != null">section_id = #{sectionId},</if>
+            <if test="outpatien != null">outpatien = #{outpatien},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePCollectById" parameterType="Long">
+        delete from p_collect where id = #{id}
+    </delete>
+
+    <delete id="deletePCollectByIds" parameterType="String">
+        delete from p_collect where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

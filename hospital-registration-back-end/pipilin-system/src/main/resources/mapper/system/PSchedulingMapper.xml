@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.PSchedulingMapper">
+    
+    <resultMap type="PScheduling" id="PSchedulingResult">
+        <result property="id"    column="id"    />
+        <result property="schedulingId"    column="scheduling_id"    />
+        <result property="schedulingStartTime"    column="scheduling_start_time"    />
+        <result property="schedulingEndTime"    column="scheduling_end_time"    />
+        <result property="createTime"    column="create_time"    />
+        <association property="sysUser"    column="user_id" javaType="SysUser" resultMap="sysUserResult" />
+        <association property="pSection"    column="dept_id" javaType="PSection" resultMap="pSectionResult" />
+        <association property="pOutpatien"    column="room_id" javaType="POutpatien" resultMap="pOutpatienResult" />
+
+    </resultMap>
+
+
+    <resultMap type="SysUser" id="sysUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="phonenumber"  column="phonenumber"  />
+        <result property="sex"          column="sex"          />
+        <result property="avatar"       column="avatar"       />
+        <result property="remark"       column="remark"       />
+        <result property="openId"       column="open_id"       />
+        <result property="balance"       column="balance"       />
+        <result property="sectionId"       column="section_id"       />
+        <result property="outpatienId"       column="outpatien_id"       />
+        <result property="sectionName"       column="sectionName"       />
+        <result property="roomName"       column="roomName"       />
+        <result property="residualNumber"       column="residual_number"       />
+        <result property="totalNumber"       column="total_number"       />
+        <result property="cancelNumber"       column="cancel_number"       />
+        <result property="rank1"       column="rank1"       />
+        <result property="age"       column="age"       />
+      </resultMap>
+
+    <resultMap type="PSection" id="pSectionResult">
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <resultMap type="POutpatien" id="pOutpatienResult">
+        <result property="roomId"    column="room_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="roomName"    column="room_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+    <sql id="selectPSchedulingVo">
+        SELECT
+            p_scheduling.id,
+            p_scheduling.scheduling_id,
+            p_scheduling.scheduling_start_time,
+            p_scheduling.scheduling_end_time,
+            p_scheduling.create_time,
+            sys_user.user_id,
+            sys_user.avatar,
+            sys_user.user_name,
+            sys_user.nick_name,
+            sys_user.age,
+            sys_user.sex,
+            sys_user.remark,
+            sys_user.phonenumber,
+            sys_user.balance,
+            sys_user.rank1,
+            sys_user.residual_number,
+            sys_user.total_number,
+            p_section.dept_id,
+            p_section.dept_name,
+            p_outpatien.room_id,
+            p_outpatien.room_name
+        FROM
+            p_scheduling
+                LEFT JOIN sys_user ON p_scheduling.scheduling_id = sys_user.user_id
+                LEFT JOIN p_section ON p_section.dept_id = sys_user.section_id
+                LEFT JOIN p_outpatien ON p_outpatien.room_id = sys_user.outpatien_id
+    </sql>
+
+    <select id="selectPSchedulingList" parameterType="PScheduling" resultMap="PSchedulingResult">
+        <include refid="selectPSchedulingVo"/>
+        <where>  
+            <if test="schedulingId != null "> and scheduling_id = #{schedulingId}</if>
+            <if test="sectionId != null "> and sys_user.section_id = #{sectionId}</if>
+            <if test="outpatienId != null "> and sys_user.outpatien_id = #{outpatienId}</if>
+            <if test="keyWord1 != null and keyWord1 != ''"> and sys_user.nick_name like concat('%', #{keyWord1}, '%')</if>
+            <if test="schedulingStartTime != null "> and scheduling_start_time = #{schedulingStartTime}</if>
+            <if test="schedulingEndTime != null "> and scheduling_end_time = #{schedulingEndTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectPSchedulingById" parameterType="Long" resultMap="PSchedulingResult">
+        <include refid="selectPSchedulingVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPScheduling" parameterType="PScheduling" useGeneratedKeys="true" keyProperty="id">
+        insert into p_scheduling
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="schedulingId != null">scheduling_id,</if>
+            <if test="schedulingStartTime != null">scheduling_start_time,</if>
+            <if test="schedulingEndTime != null">scheduling_end_time,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="schedulingId != null">#{schedulingId},</if>
+            <if test="schedulingStartTime != null">#{schedulingStartTime},</if>
+            <if test="schedulingEndTime != null">#{schedulingEndTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePScheduling" parameterType="PScheduling">
+        update p_scheduling
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="schedulingId != null">scheduling_id = #{schedulingId},</if>
+            <if test="schedulingStartTime != null">scheduling_start_time = #{schedulingStartTime},</if>
+            <if test="schedulingEndTime != null">scheduling_end_time = #{schedulingEndTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePSchedulingById" parameterType="Long">
+        delete from p_scheduling where id = #{id}
+    </delete>
+
+    <delete id="deletePSchedulingByIds" parameterType="String">
+        delete from p_scheduling where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

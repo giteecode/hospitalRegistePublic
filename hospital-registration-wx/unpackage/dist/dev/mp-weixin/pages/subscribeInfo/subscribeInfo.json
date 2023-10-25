@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "预约信息",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-avatar": "/uni_modules/uview-ui/components/u-avatar/u-avatar",
+    "xp-picker": "/components/xp-picker/xp-picker",
+    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon",
+    "u-datetime-picker": "/uni_modules/uview-ui/components/u-datetime-picker/u-datetime-picker"
+  }
+}

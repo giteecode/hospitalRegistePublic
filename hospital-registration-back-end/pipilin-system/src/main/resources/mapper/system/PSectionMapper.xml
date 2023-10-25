@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.PSectionMapper">
+    
+    <resultMap type="PSection" id="PSectionResult">
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPSectionVo">
+        select dept_id, dept_name, create_by, create_time from p_section
+    </sql>
+
+    <select id="selectPSectionList" parameterType="PSection" resultMap="PSectionResult">
+        <include refid="selectPSectionVo"/>
+        <where>  
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectPSectionByDeptId" parameterType="Long" resultMap="PSectionResult">
+        <include refid="selectPSectionVo"/>
+        where dept_id = #{deptId}
+    </select>
+
+    <select id="selectPSectionByDeptName" parameterType="String" resultMap="PSectionResult">
+        <include refid="selectPSectionVo"/>
+        where dept_name = #{deptName}
+    </select>
+
+    <select id="selectPSectionByDeptDeptIdName" resultMap="PSectionResult">
+        <include refid="selectPSectionVo"/>
+        where dept_id <![CDATA[ <> ]]> #{deptId} and dept_name = #{deptName}
+    </select>
+        
+    <insert id="insertPSection" parameterType="PSection" useGeneratedKeys="true" keyProperty="deptId">
+        insert into p_section
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deptName != null and deptName != ''">dept_name,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deptName != null and deptName != ''">#{deptName},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePSection" parameterType="PSection">
+        update p_section
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deptName != null and deptName != ''">dept_name = #{deptName},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where dept_id = #{deptId}
+    </update>
+
+    <delete id="deletePSectionByDeptId" parameterType="Long">
+        delete from p_section where dept_id = #{deptId}
+    </delete>
+
+    <delete id="deletePSectionByDeptIds" parameterType="String">
+        delete from p_section where dept_id in 
+        <foreach item="deptId" collection="array" open="(" separator="," close=")">
+            #{deptId}
+        </foreach>
+    </delete>
+</mapper>

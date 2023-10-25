@@ -1,0 +1,32 @@
+
+.cmd-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.cmd-input-input {
+  flex: 1;
+  text-align: left;
+  width: 100%;
+  height: 90rpx;
+  color: #111a34;
+  font-size: 36rpx;
+  font-weight: 500;
+  line-height: 1.2;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, 微软雅黑, Arial, sans-serif;
+  border: none;
+  background: 0 0;
+  outline: 0;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+          appearance: none;
+}
+.cmd-input-icon {
+  width: 48rpx;
+  margin-left: 8rpx;
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 500;
+  line-height: 1.2;
+}
+

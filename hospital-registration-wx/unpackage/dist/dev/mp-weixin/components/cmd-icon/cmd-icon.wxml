@@ -1,0 +1,1 @@
+<view data-event-opts="{{[['tap',[['$_click',['$event']]]]]}}" class="{{[prefixClass,prefixClass+'-'+type]}}" style="{{(setStyle)}}" bindtap="__e"></view>

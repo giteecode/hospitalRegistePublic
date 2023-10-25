@@ -1,0 +1,11 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "cmd-nav-bar": "/components/cmd-nav-bar/cmd-nav-bar",
+    "cmd-page-body": "/components/cmd-page-body/cmd-page-body",
+    "cmd-transition": "/components/cmd-transition/cmd-transition",
+    "cmd-input": "/components/cmd-input/cmd-input"
+  }
+}

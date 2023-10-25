@@ -1,0 +1,305 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 固定到页面顶部 */
+.cmd-nav-bar-fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	background: #fff;
+}
+/*沉浸状态栏变化*/
+.status-bar {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	margin-bottom: -3rpx;
+	height: 25px;
+	line-height: 25px;
+	background: transparent;
+}
+/*导航栏默认*/
+.cmd-nav-bar {
+	display: flex;
+	align-items: center;
+	height: 92rpx;
+	line-height: 92rpx;
+	color: #000;
+	background: transparent;
+	box-shadow: 0 6rpx 6rpx -3rpx rgba(0, 0, 0, .2);
+}
+/*所有都垂直占比*/
+.cmd-nav-bar-left,
+.cmd-nav-bar-title,
+.cmd-nav-bar-right {
+	flex: 1;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+/*左侧*/
+.cmd-nav-bar-left {
+	justify-content: flex-start;
+	font-size: 32rpx;
+	padding-left: 30rpx;
+}
+.cmd-nav-bar-left-icon {
+	margin-right: 10rpx;
+	display: inherit;
+}
+.cmd-nav-bar-left-title {
+	font-size: 48rpx;
+	font-weight: 500;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/*标题部分 */
+.cmd-nav-bar-title {
+	justify-content: center;
+	font-size: 36rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/*右侧*/
+.cmd-nav-bar-right {
+	justify-content: flex-end;
+	font-size: 32rpx;
+	margin-right: 30rpx;
+}
+.cmd-nav-bar-right-icon {
+	margin-left: 20rpx;
+	display: inherit;
+}
+.cmd-nav-bar-right-text {
+	margin-left: 20rpx;
+	font-weight: 500;
+}
+

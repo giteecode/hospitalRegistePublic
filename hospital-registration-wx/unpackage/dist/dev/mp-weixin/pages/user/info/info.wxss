@@ -1,0 +1,42 @@
+
+.forgot {
+  margin-top: 118rpx;
+  margin-right: 72rpx;
+  margin-left: 72rpx;
+}
+.forgot-phone {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2rpx #dedede solid;
+  margin-top: 118rpx;
+  margin-bottom: 40rpx;
+}
+.forgot-phone-getcode {
+  color: #3F51B5;
+  text-align: center;
+  min-width: 140rpx;
+}
+.forgot-password,
+.forgot-code {
+  margin-bottom: 40rpx;
+  border-bottom: 2rpx #dedede solid;
+}
+.btn-forgot {
+  margin-top: 100rpx;
+  border-radius: 50rpx;
+  font-size: 16px;
+  color: #fff;
+  background: linear-gradient(to right, #88a1f9, #9ac6ff);
+}
+.btn-forgot-active {
+  background: linear-gradient(to right, #365fff, #36bbff);
+}
+.btn-forgot-hover {
+  background: linear-gradient(to right, #365fdd, #36bbfa);
+}
+button[disabled] {
+  color: #fff;
+}
+

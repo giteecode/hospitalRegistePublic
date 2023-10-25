@@ -1,0 +1,124 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.xp-picker.data-v-19ffa08c {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  font-size: 30rpx;
+}
+.xp-picker-container.data-v-19ffa08c {
+  position: fixed;
+  bottom: 0;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  z-index: 999;
+  width: 100%;
+  background-color: #fff;
+  visibility: hidden;
+}
+.xp-picker-container--show.data-v-19ffa08c {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  visibility: visible;
+}
+.xp-picker-mask.data-v-19ffa08c {
+  z-index: 998;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+.xp-picker-animation.data-v-19ffa08c {
+  transition: all 0.25s;
+}
+.xp-picker-error.data-v-19ffa08c {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ff0000;
+}
+.xp-picker-action.data-v-19ffa08c {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90rpx;
+  padding: 0 28rpx;
+  box-sizing: border-box;
+  position: relative;
+  font-size: 34rpx;
+  border-bottom: 0.5px solid #e5e5e5;
+}
+.xp-picker-btns.data-v-19ffa08c {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 160rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.xp-button.data-v-19ffa08c {
+  line-height: 2.3;
+  font-size: 32rpx;
+  margin: 0;
+  padding: 0 80rpx;
+}
+.xp-button.data-v-19ffa08c:after {
+  border: none;
+}
+.xp-button--cancel.data-v-19ffa08c {
+  background-color: #f5f5f5;
+  color: #000;
+}
+.xp-button--confirm.data-v-19ffa08c {
+  background-color: #47a16e;
+  color: #fff;
+}
+.xp-picker-action--cancel.data-v-19ffa08c {
+  opacity: .7;
+}
+.xp-picker-action--confirm.data-v-19ffa08c {
+  color: #007aff;
+}
+.xp-picker-column.data-v-19ffa08c {
+  text-align: center;
+  border: none;
+  font-size: 34rpx;
+}
+.xp-picker-list-item.data-v-19ffa08c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+}
+

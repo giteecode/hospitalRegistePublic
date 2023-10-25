@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "就诊人信息",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-input": "/uni_modules/uview-ui/components/u-input/u-input",
+    "u-picker": "/uni_modules/uview-ui/components/u-picker/u-picker"
+  }
+}
